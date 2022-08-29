@@ -3,11 +3,11 @@ var SPEED = 3.5
 var ball = new Image();
 ball.src = 'img/paddle.png';
 
-var random = function(min, max) {
+var random = function (min, max) {
     return (min + (Math.random() * (max - min)));
 }
 
-var randomChoice = function() {
+var randomChoice = function () {
     return arguments[Math.floor(random(0, arguments.length))];
 }
 
@@ -46,6 +46,16 @@ class Ball {
 
     invert_dx() {
         this.dx *= -1;
+    }
+
+    new_trajectory(py, left) {
+        var interY = py + 50 - this.y;
+        var normalInterY = (interY / (100 / 2));
+        var bounceAngle = normalInterY * 1.309; // 1.309rad  = 75deg
+        //this.dx = SPEED * Math.cos(bounceAngle);
+        this.dy = SPEED * -Math.sin(bounceAngle);
+
+        this.invert_dx();
     }
 
     update() {

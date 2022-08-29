@@ -15,11 +15,11 @@ class Pong {
     
     collision_update() {
         var player1_edge = this.player1.get_x() + this.player1.get_width(); //right edge
-        var player1_top = this.player1.get_y();
-        var player1_bottom = player1_top + this.player1.get_height();
+        var player1_top = this.player1.get_y() - 10;
+        var player1_bottom = player1_top + this.player1.get_height() + 10;
         var player2_edge = this.player2.get_x(); //left edge
-        var player2_top = this.player2.get_y();
-        var player2_bottom = player2_top + this.player2.get_height();
+        var player2_top = this.player2.get_y() - 10;
+        var player2_bottom = player2_top + this.player2.get_height() + 10;
         
         if (this.ball.get_x() < player1_edge || this.ball.get_x() > player2_edge) { // ENDING THE POINT
             if (this.ball.get_x() < player1_edge) {
@@ -37,9 +37,9 @@ class Pong {
         if (next_ball_y < 0 || next_ball_y + this.ball.get_size() > 480) // WALLS COLLISION
             this.ball.invert_dy();
         if (next_ball_x <= player1_edge && (next_ball_y >= player1_top && next_ball_y <= player1_bottom))
-            this.ball.invert_dx();
+            this.ball.new_trajectory(this.player1.get_y(), true);
         if (next_ball_x + this.ball.get_size() >= player2_edge && (next_ball_y >= player2_top && next_ball_y <= player2_bottom))
-            this.ball.invert_dx();        
+            this.ball.new_trajectory(this.player2.get_y(), false);
     }
 
     update() {
