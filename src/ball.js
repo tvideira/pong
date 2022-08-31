@@ -1,7 +1,7 @@
 var SPEED = 3.5
 
 var ball = new Image();
-ball.src = 'img/paddle.png';
+ball.src = 'img/ball.png';
 
 var random = function (min, max) {
     return (min + (Math.random() * (max - min)));
