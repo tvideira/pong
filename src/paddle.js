@@ -16,6 +16,7 @@ class Paddle {
         this.height = 100;
         this.up = key_up;
         this.down = key_down;
+        this.score = 0;
         this.img_data = ctx.getImageData(0, 0, canvas.width, canvas.height);;
     }
 
@@ -30,6 +31,9 @@ class Paddle {
     }
     get_height() {
         return this.height;
+    }
+    get_score() {
+        return this.score;
     }
 
     update() {;

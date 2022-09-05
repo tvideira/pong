@@ -1,6 +1,7 @@
 import { Background } from "./background.js";
 import { Paddle } from "./paddle.js";
 import { Ball } from "./ball.js";
+import { Score } from "./score.js";
 
 class Pong {
     constructor() {
@@ -11,6 +12,7 @@ class Pong {
         this.player1 = new Paddle(10.0, 320.0, "z", "s");
         this.player2 = new Paddle(620.0, 75.0, "ArrowUp", "ArrowDown");
         this.requestID = undefined;
+        this.score = new Score(this.player1.get_score(), this.player2.get_score())
     }
     
     collision_update() {
@@ -23,10 +25,13 @@ class Pong {
         
         if (this.ball.get_x() < player1_edge || this.ball.get_x() > player2_edge) { // ENDING THE POINT
             if (this.ball.get_x() < player1_edge) {
-                console.log("Player 2 gets the point");
+                this.player2.score++;
+                console.log("Player 2 : " + this.player2.get_score());
             } else {
-                console.log("Player 1 gets the point");
+                this.player1.score++;
+                console.log("Player 1 : " + this.player1.get_score());
             }
+            this.score.update(this.player1.get_score(), this.player2.get_score())
             var oldball = this.ball;
             this.ball = new Ball();
             oldball = null;
@@ -49,8 +54,12 @@ class Pong {
         this.ball.update()
     }
 
+
     render() {
         this.background.render(this.ctx);
+        this.score.update(this.player1.get_score(), this.player2.get_score())
+        
+        this.score.render(this.ctx);
         this.ball.render(this.ctx);
         this.player1.render(this.ctx);
         this.player2.render(this.ctx);
