@@ -57,8 +57,6 @@ class Pong {
 
     render() {
         this.background.render(this.ctx);
-        this.score.update(this.player1.get_score(), this.player2.get_score())
-        
         this.score.render(this.ctx);
         this.ball.render(this.ctx);
         this.player1.render(this.ctx);
